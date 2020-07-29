@@ -1,0 +1,46 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Ball",
+"language": "GDScript",
+"path": "res://scripts/Ball.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Brick",
+"language": "GDScript",
+"path": "res://scripts/Brick.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Pad",
+"language": "GDScript",
+"path": "res://scripts/Pad.gd"
+} ]
+_global_script_class_icons={
+"Ball": "",
+"Brick": "",
+"Pad": ""
+}
+
+[application]
+
+config/name="blyat"
+run/main_scene="res://scenes/Arena.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+Globals="*res://scripts/Globals.gd"
+State="*res://scripts/State.gd"
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"
