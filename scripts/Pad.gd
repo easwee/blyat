@@ -29,6 +29,5 @@ func _physics_process(delta):
 		velocity.x = -velocity.x
 
 func trigger_game_active():
-	if not State.game_active:
-		State.game_active = true
-		Globals.emit_signal("game_activated")
+	if State.game_phase != Globals.phases.PLAYING:
+		Globals.emit_signal("ball_fire")

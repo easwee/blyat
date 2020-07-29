@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
+[ext_resource path="res://assets/resources/NotificationFont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://scripts/Arena.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -38,6 +39,9 @@ __meta__ = {
 }
 
 [node name="Wall_L" type="StaticBody2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall_L"]
 position = Vector2( 10, 300 )
@@ -45,6 +49,9 @@ shape = SubResource( 1 )
 
 [node name="Wall_R" type="StaticBody2D" parent="."]
 position = Vector2( 1003.92, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall_R"]
 position = Vector2( 10, 300 )
@@ -52,6 +59,9 @@ shape = SubResource( 1 )
 
 [node name="Ceiling" type="StaticBody2D" parent="."]
 position = Vector2( 512, 10 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ceiling"]
 shape = SubResource( 2 )
@@ -63,6 +73,17 @@ margin_right = 180.75
 margin_bottom = 600.25
 custom_fonts/normal_font = SubResource( 4 )
 text = "Score 0"
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Notification" type="RichTextLabel" parent="."]
+margin_top = 405.0
+margin_right = 1024.0
+margin_bottom = 455.0
+custom_fonts/normal_font = ExtResource( 1 )
+bbcode_enabled = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
