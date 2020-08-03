@@ -4,9 +4,10 @@ var viewport_width = ProjectSettings.get_setting("display/window/size/width")
 var viewport_height = ProjectSettings.get_setting("display/window/size/height")
 
 enum phases {STARTING, PLAYING, CONTINUE, OVER}
-enum brick_types {NORMAL, MULTIPLIER}
+enum brick_types {DEFAULT, MULTIPLIER}
 
 signal ball_fire
+signal brick_hit(brick)
 signal life_lost
 signal game_continue
 signal game_won
