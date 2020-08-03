@@ -7,7 +7,7 @@ const deviation_multiplier = 3
 var direction : Vector2 = Vector2(0.3, -1)
 var velocity : Vector2 = Vector2(0, 0)
 
-onready var pad = get_node("/root/Arena/Pad")
+onready var pad = get_node("/root/Core/Pad")
 onready var size : Vector2 = get_node("Sprite").get_rect().size
 
 func _ready():

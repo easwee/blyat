@@ -33,7 +33,7 @@ _global_script_class_icons={
 [application]
 
 config/name="blyat"
-run/main_scene="res://scenes/Arena.tscn"
+run/main_scene="res://scenes/Core.tscn"
 config/icon="res://icon.png"
 
 [autoload]

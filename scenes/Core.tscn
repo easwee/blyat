@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/resources/NotificationFont.tres" type="DynamicFont" id=1]
-[ext_resource path="res://scripts/Arena.gd" type="Script" id=2]
+[ext_resource path="res://scripts/Core.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 299.956 )
@@ -15,7 +15,7 @@ font_path = "res://assets/fonts/slkscrb.ttf"
 [sub_resource type="DynamicFont" id=4]
 font_data = SubResource( 3 )
 
-[node name="Arena" type="Node2D"]
+[node name="Core" type="Node2D"]
 script = ExtResource( 2 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -85,5 +85,6 @@ margin_bottom = 455.0
 custom_fonts/normal_font = ExtResource( 1 )
 bbcode_enabled = true
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }

@@ -5,11 +5,12 @@ const BALL = preload("res://components/Ball.tscn")
 const BRICK = preload("res://components/Brick.tscn")
 
 var bricks_start_position : Vector2 = Vector2(100,100)
-onready var notification : RichTextLabel = get_node("/root/Arena/Notification")
-onready var score_text : RichTextLabel = get_node("/root/Arena/ScoreText")
+onready var notification : RichTextLabel = get_node("/root/Core/Notification")
+onready var score_text : RichTextLabel = get_node("/root/Core/ScoreText")
 
 func _ready():
 	State.game_phase = Globals.phases.STARTING
+	State.current_level = Globals.levels["1"]
 
 	var pad : Pad = PAD.instance()
 	add_child(pad)
@@ -17,7 +18,7 @@ func _ready():
 	var ball : Ball = BALL.instance()
 	add_child(ball)
 	
-	generate_bricks()
+	generate_level(State.current_level)
 	
 	Globals.connect("ball_fire", self, "on_ball_fire")
 	Globals.connect("life_lost", self, "on_life_lost")
@@ -25,23 +26,26 @@ func _ready():
 	
 	notification.bbcode_text = Globals.bb_notification_game_start
 
-func generate_bricks():
-	for i in range(10):
-		for j in range(5):
-			var brick : Brick = BRICK.instance()
-			add_child(brick)
-			State.bricks_left += 1
-			brick.set_name("Brick" + str(i) + str(j))
-			brick.add_to_group("bricks")
-			brick.position = Vector2(
-				bricks_start_position.x + (brick.size.x + 2) * i,
-				bricks_start_position.x + (brick.size.y + 2) * j
-			) 
+func generate_level(level):	
+	for i in level.size():
+		for j in level[i].size():
+			place_brick(j, i, level[i][j])
+
+func place_brick(x: int, y: int, type: int):
+	var brick : Brick = BRICK.instance()
+	add_child(brick)
+	State.bricks_left += 1
+	brick.type = type
+	brick.set_name("Brick" + str(x) + str(y))
+	brick.add_to_group("bricks")
+	brick.position = Vector2(
+		bricks_start_position.x + (brick.size.x + 2) * x,
+		bricks_start_position.x + (brick.size.y + 2) * y
+	)
+	
 
 func on_ball_fire():
-	print("ball fire", State.game_phase)
 	if State.game_phase == Globals.phases.OVER:
-		print("reseting")
 		reset_game()
 	
 	State.game_phase = Globals.phases.PLAYING
@@ -73,4 +77,4 @@ func reset_game():
 	for item in get_tree().get_nodes_in_group("bricks"):
 		item.queue_free()
 
-	generate_bricks()
+	#generate_level(State.current_level)
