@@ -12,4 +12,5 @@ script = ExtResource( 2 )
 texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+modulate = Color( 0.517647, 0.054902, 0.054902, 1 )
 shape = SubResource( 1 )

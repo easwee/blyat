@@ -12,8 +12,12 @@ var type : int = 0
 
 func _ready():
 	position = position - size / 2
-	gfx.color = Color(type * 0.1, 0, 0, 1)
 
 func _physics_process(delta):
 	velocity.y += fall_speed
 	position += velocity * delta
+
+func on_body_entered(body):
+	if(body.name == "Pad"):
+		Globals.emit_signal("modifier_pickup", type)
+		queue_free()

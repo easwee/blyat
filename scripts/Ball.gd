@@ -14,7 +14,7 @@ func _ready():
 	Globals.connect("ball_fire", self, "on_ball_fire")
 
 func _physics_process(delta):
-	if State.game_phase != Globals.phases.PLAYING:
+	if State.game_phase != Globals.PHASE.PLAYING:
 		align_spawn_position()
 		return 
 	
@@ -48,4 +48,4 @@ func reset():
 	align_spawn_position()
 
 func align_spawn_position():
-	position = pad.position + Vector2(0, -10)
+	position = pad.position + Vector2(0, -12)

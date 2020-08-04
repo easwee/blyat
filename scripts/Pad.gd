@@ -25,9 +25,11 @@ func _physics_process(delta):
 
 	var collision = move_and_collide(velocity * delta)
 
-	if collision:
-		velocity.x = -velocity.x
-
 func trigger_game_active():
-	if State.game_phase != Globals.phases.PLAYING:
+	if State.game_phase != Globals.PHASE.PLAYING:
 		Globals.emit_signal("ball_fire")
+
+
+
+
+

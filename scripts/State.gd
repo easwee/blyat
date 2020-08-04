@@ -1,6 +1,6 @@
 extends Node
 
-var game_phase : int = Globals.phases.STARTING
+var game_phase : int = Globals.PHASE.STARTING
 var current_level : Array = []
 var tries : int = 3
 var score : int = 0
