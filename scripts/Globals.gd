@@ -6,11 +6,11 @@ var bevel : Vector2 = Vector2(20,20)
 
 enum PHASE {STARTING, PLAYING, CONTINUE, OVER}
 enum BRICK_TYPE {
-	DEFAULT, EXPAND, CONTRACT, 
-	SLOW, FAST, FADE,
-	LIFE, DEATH, MULTIBALL,
-	FULL
+	DEFAULT, 
+	PAD_EXPAND, PAD_CONTRACT, 
+	BALL_FAST, BALL_SLOW
 }
+
 const BRICK_TYPE_COLOR = {
 	0: "White",
 	1: "Light Sky Blue",
@@ -24,23 +24,18 @@ const BRICK_TYPE_COLOR = {
 	9: "Firebrick",
 	10: "Light Green",
 }
-const HEROES = {
-	"Warrior":0,
-	"Magician":1,
-	"Thief":2
-}
 
 signal ball_fire
 signal brick_hit(brick)
 signal modifier_pickup
 signal life_lost
 signal game_continue
-signal game_won
+signal level_won
 signal game_over
 
 const bb_notification_game_start = "[center]Press space to start[/center]"
 const bb_notification_game_continue = "[center]Press space to continue[/center]"
-const bb_notification_game_won = "[center]You win! Press space to restart[/center]"
+const bb_notification_level_won = "[center]Level cleared! Press space to c[/center]"
 const bb_notification_game_over = "[center]Game over. Press space to restart[/center]"
 
 var levels

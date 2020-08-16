@@ -16,7 +16,7 @@ func on_hit():
 	State.bricks_left -= 1
 	Globals.emit_signal("brick_hit", self)
 	if State.bricks_left == 0:
-		Globals.emit_signal("game_won")
+		Globals.emit_signal("level_won")
 	queue_free()
 
 func init(x: int, y: int, brick_type: int):

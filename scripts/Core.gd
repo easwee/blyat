@@ -10,9 +10,12 @@ const Util = preload("res://scripts/Util.gd")
 onready var notification : RichTextLabel = get_node("/root/Core/Notification")
 onready var score_text : RichTextLabel = get_node("/root/Core/ScoreText")
 
+var pad : Pad
+var ball : Ball
+
 func _ready():
 	State.game_phase = Globals.PHASE.STARTING
-	State.current_level = Globals.levels["0"]
+	State.current_level = Globals.levels[str(State.current_level_index)]
 	
 	generate_level(State.current_level)
 	spawn_pad()
@@ -21,7 +24,7 @@ func _ready():
 	Globals.connect("ball_fire", self, "on_ball_fire")
 	Globals.connect("brick_hit", self, "on_brick_hit")
 	Globals.connect("life_lost", self, "on_life_lost")
-	Globals.connect("game_won", self, "on_game_won")
+	Globals.connect("level_won", self, "on_level_won")
 	Globals.connect("modifier_pickup", self, "on_modifier_pickup")
 
 	notification.bbcode_text = Globals.bb_notification_game_start
@@ -41,11 +44,11 @@ func place_brick(x: int, y: int, type: int):
 	State.bricks_left += 1
 
 func spawn_ball():
-	var ball : Ball = BALL.instance()
+	ball = BALL.instance()
 	add_child(ball)
 	
 func spawn_pad():
-	var pad : Pad = PAD.instance()
+	pad = PAD.instance()
 	add_child(pad)
 
 func spawn_modifier(position: Vector2, type: int):
@@ -57,7 +60,7 @@ func spawn_modifier(position: Vector2, type: int):
 	modifier.gfx.color = Util.get_modifier_gfx(type)
 
 func on_ball_fire():
-	if State.game_phase == Globals.PHASE.OVER:
+	if State.game_phase == Globals.PHASE.OVER and State.tries == 0:
 		reset_game()
 	
 	State.game_phase = Globals.PHASE.PLAYING
@@ -68,7 +71,12 @@ func on_brick_hit(brick):
 		spawn_modifier(brick.position + (brick.size / 2), brick.type)
 
 func on_modifier_pickup(type):
-	print("pickup")
+	State.modifiers.append(type)
+	match(type):
+		1, 2:
+			pad.modify(type)
+		3, 4:
+			ball.modify(type)
 
 func on_life_lost():
 	State.tries -= 1
@@ -80,11 +88,15 @@ func on_life_lost():
 		State.game_phase = Globals.PHASE.OVER
 		notification.bbcode_text = Globals.bb_notification_game_over
 	notification.show()
+	pad.reset()
 
-func on_game_won():
+func on_level_won():
 	State.game_phase = Globals.PHASE.OVER
+	State.current_level_index += 1
+	State.current_level = Globals.levels[str(State.current_level_index)]
+	generate_level(State.current_level)
 	notification.show()
-	notification.bbcode_text = Globals.bb_notification_game_won
+	notification.bbcode_text = Globals.bb_notification_level_won
 
 func reset_game():
 	State.score = 0
@@ -94,5 +106,4 @@ func reset_game():
 	score_text.set_text("Score " + str(State.score))
 	for item in get_tree().get_nodes_in_group("bricks"):
 		item.queue_free()
-
 	generate_level(State.current_level)
