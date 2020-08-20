@@ -1,10 +1,14 @@
 extends Node
 
+var storage = File.new()
+var storage_path = "user://storage.save"
+var storage_data = {"highscore": 0}
+
 var viewport_width = ProjectSettings.get_setting("display/window/size/width")
 var viewport_height = ProjectSettings.get_setting("display/window/size/height")
 var bevel : Vector2 = Vector2(20,20)
 
-enum PHASE {STARTING, PLAYING, CONTINUE, OVER}
+enum PHASE {IDLE, PLAYING, LEVEL_FAILED, LEVEL_COMPLETED}
 enum BRICK_TYPE {
 	DEFAULT, 
 	PAD_EXPAND, PAD_CONTRACT, 
@@ -32,11 +36,12 @@ signal life_lost
 signal game_continue
 signal level_won
 signal game_over
+signal game_completed
 
 const bb_notification_game_start = "[center]Press space to start[/center]"
-const bb_notification_game_continue = "[center]Press space to continue[/center]"
-const bb_notification_level_won = "[center]Level cleared! Press space to c[/center]"
-const bb_notification_game_over = "[center]Game over. Press space to restart[/center]"
+const bb_notification_game_continue = "[center]Life lost!\nPress space to continue[/center]"
+const bb_notification_level_won = "[center]Level cleared!\nPress space to continue[/center]"
+const bb_notification_game_over = "[center]Game over.\nPress space for a new game[/center]"
 
 var levels
 

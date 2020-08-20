@@ -78,6 +78,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="BestScoreText" type="RichTextLabel" parent="."]
+margin_left = 844.465
+margin_top = 582.25
+margin_right = 1001.46
+margin_bottom = 600.25
+custom_fonts/normal_font = SubResource( 4 )
+bbcode_enabled = true
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
 [node name="Notification" type="RichTextLabel" parent="."]
 margin_top = 405.0
 margin_right = 1024.0

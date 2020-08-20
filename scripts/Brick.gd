@@ -5,6 +5,7 @@ class_name Brick
 const Util = preload("res://scripts/Util.gd")
 
 onready var score_text : RichTextLabel = get_node("/root/Core/ScoreText")
+onready var best_score_text : RichTextLabel = get_node("/root/Core/BestScoreText")
 onready var gfx = get_node("Sprite")
 onready var size : Vector2 = gfx.get_rect().size
 
@@ -13,6 +14,12 @@ var type: int = 0
 func on_hit():
 	State.score += 1
 	score_text.set_text("Score " + str(State.score))
+
+	if State.score > State.best:
+		Util.save(State.score)
+		State.best = State.score
+		best_score_text.bbcode_text = "[right]Best " + str(State.best) + "[/right]"
+	
 	State.bricks_left -= 1
 	Globals.emit_signal("brick_hit", self)
 	if State.bricks_left == 0:

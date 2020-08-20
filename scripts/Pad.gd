@@ -18,9 +18,11 @@ func _ready():
 	position = Vector2(Globals.viewport_width / 2, Globals.viewport_height - 100)
 	set_name("Pad")
 
-func _physics_process(delta):
+func _input(event):
 	if Input.is_action_pressed("ui_select"):
 		trigger_game_active()
+
+func _physics_process(delta):	
 	if Input.is_action_pressed("ui_right") and velocity.x < max_speed.x:
 		velocity.x += acceleration.x
 	if Input.is_action_pressed("ui_left") and velocity.x < max_speed.x:
@@ -32,7 +34,9 @@ func _physics_process(delta):
 
 func trigger_game_active():
 	if State.game_phase != Globals.PHASE.PLAYING:
+		print("Fire! Phase: ", State.game_phase)
 		Globals.emit_signal("ball_fire")
+
 
 func modify(type):
 	match(type):
